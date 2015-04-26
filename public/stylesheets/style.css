@@ -3,5 +3,19 @@ body {
 }
 .starter-template {
   padding: 40px 15px;
-  text-align: center;
+  /*text-align: center;*/
+}
+
+.starter-template td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.starter-template td.header-title {
+  max-width: 14.875em;
+}
+
+.starter-template td.header-body {
+  max-width: 23.875em;
 }
