@@ -66,6 +66,24 @@
               <tbody>
                 {{#issues}}
                 <tr class="issue">
+                  <td class="body-vote">
+                    <div class="btn-group" role="group" aria-label="...">
+
+                      <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                      </button>
+                      <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+                      </button>
+
+                      <!-- <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                      </button>
+                      <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                      </button> -->
+                    </div>
+                  </td>
                   <td class="body-title"><a href="{{html_url}}">{{title}}</a></td>
                   <td class="body-body">{{body}}</td>
                   <td class="body-author">{{#user}}<a href="{{html_url}}">{{login}}</a>{{/user}}</td>
