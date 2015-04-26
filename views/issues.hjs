@@ -55,28 +55,25 @@
 
     <div class="container">
       <div class="starter-template">
-        <h1>{{ user }}/{{ repo }}</h1>
-        <div class="panel panel-default">
-          <div class="panel-heading"><h3 class="panel-title">Panel title</h3></div>
-          <div class="panel-body">
-            <p>...</p>
-          </div>
-          <div class="table-responsive">
-            <table class="table">
+        <div class="page-header">
+          <h1>{{ user }}/{{ repo }}</h1>
+        </div>
+          <div class="issues table-responsive">
+            <table class="table table-striped">
               <thead>
                 {{{heading}}}
               </thead>
               <tbody>
                 {{#issues}}
-                <tr>
-                  <td class="header-title"><a href="{{html_url}}">{{title}}</a></td>
-                  <td class="header-body">{{body}}</td>
-                  <td class="header-author">{{#user}}<a href="{{html_url}}">{{login}}</a>{{/user}}</td>              </tr>
+                <tr class="issue">
+                  <td class="body-title"><a href="{{html_url}}">{{title}}</a></td>
+                  <td class="body-body">{{body}}</td>
+                  <td class="body-author">{{#user}}<a href="{{html_url}}">{{login}}</a>{{/user}}</td>
+                </tr>
                 {{/issues}}
               </tbody>
             </table>
           <div>
-        </div>
       </div>
     </div><!-- /.container -->
 

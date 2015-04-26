@@ -6,16 +6,29 @@ body {
   /*text-align: center;*/
 }
 
-.starter-template td {
+.starter-template .page-header {
+  border-bottom: 0px;
+}
+
+.starter-template .issue td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border: none;
 }
 
-.starter-template td.header-title {
+.starter-template .issue td {
   max-width: 14.875em;
 }
 
-.starter-template td.header-body {
+.starter-template .issue td {
   max-width: 23.875em;
+}
+
+tbody tr.issue td {
+  padding: 15px 8px;
+}
+
+thead tr.issue td {
+  padding: 0px 8px;
 }

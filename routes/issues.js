@@ -20,10 +20,10 @@ router.get('/:user/:repo', function(req, res, next) {
           user: req.params.user,
           repo: req.params.repo,
           heading:
-          "<tr class='panel-title'>"  +
-            "<td>Title</td>"          +
-            "<td>Body</td>"           +
-            "<td>Author</td>"         +
+          "<tr class='issue'>"  +
+            "<td class='header-title'><h3>Title</h3></td>"           +
+            "<td class='header-body'><h3>Body<h3></td>"             +
+            "<td class='header-author'><h3>Author<h3></td>"         +
           "</tr>",
           issues: JSON.parse(data),
         };
