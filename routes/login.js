@@ -36,9 +36,9 @@ passport.use(new GitHubStrategy({
     callbackURL: "http://localhost:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findorCreate({ githubId: profile.id }, function (err, user) {
+    User.insert({githubId: profile.id}), function (err, user) {
       return done(err, user);
-    });
+    };
   })
 );
 
@@ -57,15 +57,8 @@ router.get('/login', function(req, res, next) {
 router.get('/auth/github',
   passport.authenticate('github'),
   function(req, res){
-    // The request will be redirected to GitHub for authentication, so this
-    // function will not be called.
   });
 
-// GET /auth/github/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
 router.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
