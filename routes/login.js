@@ -8,7 +8,6 @@ var GITHUB_CLIENT_ID = settings["github"]["CLIENT_ID"];
 var GITHUB_CLIENT_SECRET = settings["github"]["SECRET_KEY"];
 var User = require('../db').users;
 
-
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
@@ -31,14 +30,14 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, and GitHub
 //   profile), and invoke a callback with a user object.
 passport.use(new GitHubStrategy({
-    clientID: GITHUB_CLIENT_ID,
-    clientSecret: GITHUB_CLIENT_SECRET,
+    clientID: "6795624dcdc2dbe7533c",
+    clientSecret: "00f921a69a482b6132de5361d8af68e04f8716f0",
     callbackURL: "http://localhost:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.insert({githubId: profile.id}), function (err, user) {
+    User.insert({githubId: profile.id}, function (err, user) {
       return done(err, user);
-    };
+    });
   })
 );
 

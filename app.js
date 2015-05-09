@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: 'keyboard cat' }));
 app.use(cookieParser());
 app.use(passport.initialize());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', login);
