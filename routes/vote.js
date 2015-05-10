@@ -14,20 +14,9 @@ router.post('/vote/:user/:repo/:issue', function(req, res, next) {
       }
   };
 
-  repos.findOne(model).on('success', function(repo) {
-    if (repo) {
-      repo.issues.some(function(issue){
-        if (issue.number ==  req.params.issue) {
-          model = dcopy(repo);
-          issue.votes++;
-          repos.update(model, repo);
-          return true;
-        }
-      });
-      res.end();
-    } else {
-      next();
-    }
+  repos.update(model, { "$inc": { "issues.$.votes" : 1 } }, function(error, doc) {
+    if (error) throw error;    
+    res.end();
   });
 });
 

@@ -3,7 +3,6 @@ var router = express.Router();
 var https = require('https');
 
 var repos = require('../db').repos;
-// repos.drop();
 
 /* GET a GitHub repo. */
 router.get('/:user/:repo', function(req, res, next) {
