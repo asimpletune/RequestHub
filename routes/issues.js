@@ -2,37 +2,51 @@ var express = require('express');
 var router = express.Router();
 var https = require('https');
 
+var repos = require('../db').repos;
+// repos.drop();
+
 /* GET a GitHub repo. */
 router.get('/:user/:repo', function(req, res, next) {
-  var headers = { 'User-Agent': 'node' };
-  var options = {
+  var headers = { 'User-Agent': 'node' },
+  options = {
     hostname: 'api.github.com',
     port: 443,
     path: "/repos/" + req.params.user + "/" + req.params.repo + "/issues",
     method: 'GET',
     headers: headers
+  }, model = {
+    "repo" : req.params.repo,
+    "user" : req.params.user
   };
+
   https.get(options, function(response) {
+    if (response.statusCode == 200) {
       var data = '';
       response.on('data', function(d) { data += d; });
       response.on('end', function(d) {
-        var model = {
-          user: req.params.user,
-          repo: req.params.repo,
-          heading:
-          "<tr class='issue'>"                                      +
-            "<td class='header-vote'></td>"          +
-            "<td class='header-title'><h3>Title</h3></td>"          +
-            "<td class='header-body'><h3>Body<h3></td>"             +
-            "<td class='header-author'><h3>Author<h3></td>"         +
-          "</tr>",
-          issues: JSON.parse(data),
-        };
-        res.render('issues', model);
+        repos.findOne(model).on('success', function(repo) {
+          if (repo == null) {
+            model.issues = JSON.parse(data);
+            model.issues.forEach(function(issue){ issue.votes = 0; });
+            repos.insert(model, function(error, doc){
+              if (error) throw error;
+              else {
+                console.log("Added:")
+                console.log(doc);
+              }
+            });
+          } else {
+            model = repo;
+          }
+          res.render('issues', model);
+        });
       });
-    }).on('error', function(e) {
-      console.error(e);
-    });
+    } else {
+      next();
+    }
+  }).on('error', function(e) {
+    console.error(e);
+  });
 });
 
 module.exports = router;
