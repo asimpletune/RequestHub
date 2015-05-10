@@ -62,7 +62,9 @@
             <table class="table table-striped">
               <thead>
                 <tr class='issue'>
-                  <td class='header-vote'></td>"
+                  <td class='header-vote'></td>
+                  <td class='header-title'><h3>Votes</h3></td>
+                  <td class='header-title'><h3>Issue #</h3></td>
                   <td class='header-title'><h3>Title</h3></td>
                   <td class='header-body'><h3>Body<h3></td>
                   <td class='header-author'><h3>Author<h3></td>
@@ -70,26 +72,21 @@
               </thead>
               <tbody>
                 {{#issues}}
-                <tr class="issue">
+                <tr id="issue_{{number}}" class="issue">
                   <td class="body-vote">
                     <div class="btn-group" role="group" aria-label="...">
-
-                      <button type="button" class="btn btn-default">
+                      <button type="button" class="btn btn-default"
+                      onclick='myFunc({{number}}, function(){
+                        var vote = $("#issue_{{number}} .votes");
+                        var voteCount = Number(vote.text());
+                        vote.text(++voteCount);
+                      });'>
                         <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                       </button>
-                      <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
-                      </button>
-
-                      <!-- <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
-                      </button>
-                      <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                      </button> -->
                     </div>
                   </td>
-                  <td class="body-title">{{votes}} votes</td>
+                  <td class="votes body-title">{{votes}}</td>
+                  <td class="body-title">{{number}}</td>
                   <td class="body-title"><a href="{{html_url}}">{{title}}</a></td>
                   <td class="body-body">{{body}}</td>
                   <td class="body-author">{{#user}}<a href="{{html_url}}">{{login}}</a>{{/user}}</td>
@@ -116,15 +113,13 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/javascripts/jquery.min.js"></script>
     <script type="text/javascript">
-      $.getJSON(
-        "https://api.github.com/repos/{{ user }}/{{ repo }}/issues", function( response ) {
-        // "https://api.github.com/repos/asimpletune/templates/issues", function( response ) {
-          if (response.length > 0) {
-            response.forEach(function(element, index, array) {
-              console.log(element);
-            });
-          }
-      });
+      function myFunc(issueNumber, fn) {
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:3000/vote/{{user}}/{{repo}}/" + issueNumber,
+          success: fn
+        });
+      }
     </script>
     <script src="/javascripts/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
