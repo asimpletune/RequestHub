@@ -30,8 +30,8 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, and GitHub
 //   profile), and invoke a callback with a user object.
 passport.use(new GitHubStrategy({
-    clientID: "6795624dcdc2dbe7533c",
-    clientSecret: "00f921a69a482b6132de5361d8af68e04f8716f0",
+    clientID: settings.github.CLIENT_ID,
+    clientSecret: settings.github.SECRET_KEY,
     callbackURL: "http://localhost:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
