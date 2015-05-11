@@ -1,10 +1,13 @@
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 var https = require('https');
-
 var repos = require('../db').repos;
 
-/* GET a GitHub repo. */
+router.get('/:user/:repo/*', function(req, res, next) {
+  console.log("user");
+  console.log(req.params.user);
+  res.redirect("/" + req.params.user + "/" + req.params.repo);
+});
+
 router.get('/:user/:repo', function(req, res, next) {
   var headers = { 'User-Agent': 'node' },
   options = {
