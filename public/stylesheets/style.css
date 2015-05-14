@@ -50,3 +50,62 @@ thead tr.issue td {
   color: #9d9d9d;
   font-size: 1.2em;
 }
+
+.navbar-nav li a {
+ line-height: 80px;
+}
+
+.navbar-nav p.logout {
+  margin: 10px;
+}
+
+.navbar-login {
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session {
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size {
+    font-size: 87px;
+}
+
+img.user {
+  margin: 0 15px;
+  border-radius: 50%;
+  width: 75px;
+}
+
+.dropdown-menu {
+  top: 108%;
+}
+
+.dropdown-menu:before {
+  position: absolute;
+  top: -7px;
+  /* left: 0; */
+  right: 0px;
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-left: 7px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  content: '';
+}
+
+.dropdown-menu:after {
+  position: absolute;
+  top: -5px;
+  /* left: 0; */
+  right: 1px;
+  display: inline-block;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #ffffff;
+  border-left: 6px solid transparent;
+  content: '';
+}

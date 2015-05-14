@@ -3,8 +3,6 @@ var https = require('https');
 var repos = require('../db').repos;
 
 router.get('/:user/:repo/*', function(req, res, next) {
-  console.log("user");
-  console.log(req.params.user);
   res.redirect("/" + req.params.user + "/" + req.params.repo);
 });
 
