@@ -6,27 +6,36 @@ body {
   padding-top: 50px;
   margin-bottom: 7.5em;
 }
-.starter-template {
+.content {
   padding: 40px 15px;
-  /*text-align: center;*/
+  margin-top: 50px
 }
 
-.starter-template .page-header {
+#about {
+  text-align: center;
+}
+
+.content section {
+  margin-top: 50px;
+  margin-bottom: 80px;
+}
+
+.content .page-header {
   border-bottom: 0px;
 }
 
-.starter-template .issue td {
+.content .issue td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   border: none;
 }
 
-.starter-template .issue td {
+.content .issue td {
   max-width: 14.875em;
 }
 
-.starter-template .issue td {
+.content .issue td {
   max-width: 23.875em;
 }
 
@@ -51,8 +60,14 @@ thead tr.issue td {
   font-size: 1.2em;
 }
 
-.navbar-nav li a {
+.navbar-header .user li a {
+  font-size: 36px;
+  margin-top: 3px;
+}
+
+.user li a {
  line-height: 80px;
+ font-size: 20px;
 }
 
 .navbar-nav p.logout {
@@ -108,4 +123,20 @@ img.user {
   border-bottom: 6px solid #ffffff;
   border-left: 6px solid transparent;
   content: '';
+}
+
+.dropdown-toggle .glyphicon {
+  top: 4px;
+}
+
+#instructions img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#about:before, #instructions:before {
+content:"";
+display:block;
+height:110px; /* fixed header height*/
+margin:-110px 0 0; /* negative fixed header height */
 }

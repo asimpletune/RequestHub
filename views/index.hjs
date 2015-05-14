@@ -38,22 +38,21 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <ul class="nav navbar-nav">
+          <ul class="nav user">
             <li>
-              <a class="navbar-brand" href="/">
+              <a class="navbar-brand" href="#">
                 RequestHub
               </a>
             </li>
           </ul>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/#about">About</a></li>
-            <li><a href="/#instructions">Instructions</a></li>
-            <li><a href="/#contact">Contact</a></li>
+          <ul class="nav navbar-nav user">
+            <li class="active"><a href="#about">About</a></li>
+            <li><a href="#instructions">Instructions</a></li>
+            <li><a href="https://github.com/asimpletune/RequestHub.io">View on GitHub</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right user">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- <span class="glyphicon glyphicon-user"></span>  -->
@@ -79,11 +78,36 @@
         </div><!--/.nav-collapse -->
       </div><!-- /.container -->
     </nav>
-
     <div class="container">
-      <div class="starter-template">
-        <h1>Vote on GitHub!</h1>
-        <p class="lead">To find the GitHub repo you want to vote on.<br> just replace "github.com" in the url with "requesthub.io". That's it!</p>
+      <div class="content">
+        <section>
+          <div id="about">
+            <h1>Voting for GitHub!</h1>
+            <p class="lead">RequestHub is a simple tool that uses the GitHub API<br> to allow people to vote on features/issues for their favorite projects.</p>
+          </div>
+        </section>
+        <section>
+          <div id="instructions">
+            <div class="step">
+              <h2>Step 1</h2>
+              <p class="lead">Go to the project you're interested in on GitHub.</p>
+              <img src="/images/step_1.png"/>
+            </div>
+
+            <div class="step">
+              <h2>Step 2</h2>
+              <p class="lead">Replace the url of the GitHub project with "RequestHub.io"</p>
+              <img src="/images/step_2.png"/>
+            </div>
+
+            <div class="step">
+              <h2>Step 3</h2>
+              <p class="lead">Vote!</p>
+              <img src="/images/step_3.png"/>
+            </div>
+
+          </div>
+        </section>
       </div>
     </div><!-- /.container -->
 
