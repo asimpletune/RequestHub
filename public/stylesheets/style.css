@@ -137,7 +137,7 @@ thead tr.issue td {
   margin: 0 15px;
 }
 
-div.row + div.row div {
+div.row + div.row > div:not(.body) {
   overflow: hidden;
   height: 3em;
   text-overflow: ellipsis;
@@ -145,8 +145,13 @@ div.row + div.row div {
   line-height: 3em;
 }
 
-div.row:nth-child(odd) {background: #f9f9f9}
+.container > div.row:nth-child(odd) {background: #f9f9f9}
 
 div.row {
   padding: 30px;
+}
+
+.issueBody{
+  margin-top: 25px;
+  margin-bottom: -25px;
 }
