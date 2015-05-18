@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 var https = require('https');
 var repos = require('../db').repos;
 var dcopy = require('deep-copy');
@@ -15,7 +14,7 @@ router.post('/vote/:user/:repo/:issue', function(req, res, next) {
   };
 
   repos.update(model, { "$inc": { "issues.$.votes" : 1 } }, function(error, doc) {
-    if (error) throw error;    
+    if (error) throw error;
     res.end();
   });
 });

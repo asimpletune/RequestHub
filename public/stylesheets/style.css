@@ -122,8 +122,8 @@ thead tr.issue td {
 #about:before, #instructions:before {
   content:"";
   display:block;
-  height:110px; /* fixed header height*/
-  margin:-110px 0 0; /* negative fixed header height */
+  height:50px; /* fixed header height*/
+  margin:-125px 0 0; /* negative fixed header height */
 }
 
 .navbar li a, .navbar .navbar-brand {
