@@ -60,50 +60,35 @@ thead tr.issue td {
   font-size: 1.2em;
 }
 
-.navbar-header .user li a {
-  font-size: 36px;
-  margin-top: 3px;
-}
-
-.user li a {
- line-height: 80px;
- font-size: 20px;
-}
-
 .navbar-nav p.logout {
   margin: 10px;
 }
 
 .navbar-login {
-    width: 305px;
-    padding: 10px;
-    padding-bottom: 0px;
+  width: 305px;
+  padding: 10px;
+  padding-bottom: 0px;
 }
 
 .navbar-login-session {
-    padding: 10px;
-    padding-bottom: 0px;
-    padding-top: 0px;
+  padding: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 .icon-size {
-    font-size: 87px;
+  font-size: 87px;
 }
 
-img.user {
-  margin: 0 15px;
-  border-radius: 50%;
-  width: 75px;
-}
-
-.dropdown-menu {
+.navbar-nav li .dropdown-menu {
   top: 108%;
+  right: 50%;
+  margin-top: 5px;
 }
 
 .dropdown-menu:before {
   position: absolute;
   top: -7px;
-  /* left: 0; */
   right: 0px;
   display: inline-block;
   border-right: 7px solid transparent;
@@ -135,8 +120,20 @@ img.user {
 }
 
 #about:before, #instructions:before {
-content:"";
-display:block;
-height:110px; /* fixed header height*/
-margin:-110px 0 0; /* negative fixed header height */
+  content:"";
+  display:block;
+  height:110px; /* fixed header height*/
+  margin:-110px 0 0; /* negative fixed header height */
+}
+
+.navbar li a, .navbar .navbar-brand {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  line-height: 50px;
+}
+
+img.user {
+  margin: 0 15px;
+  border-radius: 50%;
+  width: 35px;
 }
