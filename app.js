@@ -13,6 +13,7 @@ var login = require('./routes/login');
 var routes = require('./routes/index');
 var issues = require('./routes/issues');
 var vote = require('./routes/vote');
+var issuesTest = require('./routes/issues-test');
 
 
 var app = express();
@@ -32,6 +33,7 @@ app.use(passport.initialize());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/test/', issuesTest);
 app.use('/', login);
 app.use('/', routes);
 app.use('/', issues);

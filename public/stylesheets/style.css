@@ -137,3 +137,17 @@ img.user {
   border-radius: 50%;
   width: 35px;
 }
+
+div.row + div.row div {
+  overflow: hidden;
+  height: 3em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 3em;
+}
+
+div.row:nth-child(odd) {background: #f9f9f9}
+
+div.row {
+  padding: 30px;
+}
