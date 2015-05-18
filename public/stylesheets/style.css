@@ -155,3 +155,11 @@ div.row {
   margin-top: 25px;
   margin-bottom: -25px;
 }
+
+.issueBodyToggle .glyphicon-menu-up, .issueBodyToggle.collapsed .glyphicon-menu-down {
+  display: inline-block;
+}
+
+.issueBodyToggle.collapsed .glyphicon-menu-up, .issueBodyToggle .glyphicon-menu-down {
+  display: none;
+}

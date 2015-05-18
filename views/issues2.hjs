@@ -3,10 +3,11 @@
     <h1>{{ user }}/{{ repo }}</h1>
   </div>
   <div class="row">
-    <div class="col-lg-1"><h3></h3></div>
-    <div class="col-md-1"><h3>votes</h3></div>
-    <div class="col-md-2"><h3>issue #</h2></div>
-    <div class="col-md-3"><h3>title</h2></div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-1"><h3>votes</h3></div>
+    <div class="col-lg-2"><h3>issue #</h2></div>
+    <div class="col-lg-5"><h3>title</h2></div>
+    <div class="col-lg-2"><h3>author</h3></div>
   </div>
   {{#issues}}
   <div class="row">
@@ -22,15 +23,24 @@
         </button>
       </div>
     </div>
-    <div class="col-md-1 votes">
+    <div class="col-lg-1 votes">
       {{votes}}
     </div>
-    <div class="col-md-2 issueNumber">
+    <div class="col-lg-2 issueNumber">
       {{number}}
     </div>
-    <div class="col-md-8 issueTitle">
-      <a data-toggle="collapse" href="#{{number}}">
+    <div class="col-lg-5 issueTitle">
+      <a href="{{html_url}}">
         {{title}}
+      </a>
+    </div>
+    <div class="col-lg-2 issueAuthor">
+      <a href="{{user.html_url}}">{{user.login}}</a>
+    </div>
+    <div class="col-lg-1">
+      <a class="issueBodyToggle collapsed" data-toggle="collapse" href="#{{number}}">
+        <span href="#{{number}}" class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+        <span href="#{{number}}" class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
       </a>
     </div>
     <div id="{{number}}" class="body row collapse">
