@@ -5,7 +5,11 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('layout',
     {
-
+      partials: {
+        head: 'head',
+        nav: 'nav',
+        content: 'index'
+      }
     });
 });
 
