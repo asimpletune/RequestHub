@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var https = require('https');
-var repos = require('../db').repos;
+var repos = require('../models/db').repos;
 
 router.get('/:user/:repo/*', function(req, res, next) {
   res.redirect("/" + req.params.user + "/" + req.params.repo);

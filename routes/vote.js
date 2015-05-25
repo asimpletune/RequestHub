@@ -1,10 +1,8 @@
 var router = require('express').Router();
 var https = require('https');
-var repos = require('../db').repos;
-var dcopy = require('deep-copy');
+var repos = require('../models/db').repos;
 
-/* GET a GitHub repo. */
-router.post('/vote/:user/:repo/:issue', function(req, res, next) {
+router.post('/:user/:repo/:issue', function(req, res, next) {
   model = {
       user: req.params.user,
       repo: req.params.repo,

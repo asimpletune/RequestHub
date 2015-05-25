@@ -1,11 +1,10 @@
 var router = require('express').Router();
 var passport = require('passport');
-var util = require('util');
 var GitHubStrategy = require('passport-github').Strategy;
-var settings = require('../settings.js')
+var settings = require('../config/settings')
 var GITHUB_CLIENT_ID = settings["github"]["CLIENT_ID"];
 var GITHUB_CLIENT_SECRET = settings["github"]["SECRET_KEY"];
-var User = require('../db').users;
+var User = require('../models/db').users;
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to

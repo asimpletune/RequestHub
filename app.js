@@ -1,3 +1,4 @@
+// Modules
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -5,24 +6,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
 var passport = require('passport');
-
-
-var login = require('./routes/login');
-var routes = require('./routes/index');
-var issues = require('./routes/issues');
-var vote = require('./routes/vote');
-var issuesTest = require('./routes/issues-test');
-
-
 var app = express();
 
-// view engine setup
+// View setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
 
-// uncomment after placing your favicon in /public
+// Modules usage
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -31,25 +22,23 @@ app.use(session({ secret: 'keyboard cat' }));
 app.use(cookieParser());
 app.use(passport.initialize());
 
+// Static file server for /public
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/test/', issuesTest);
-app.use('/', login);
-app.use('/', routes);
-app.use('/', issues);
-app.use('/', vote);
+// Routes declaration and usage
+app.use('/test/', require('./routes/issues-test'));
+app.use('/vote/', require('./routes/vote'));
+app.use('/', require('./routes/login'));
+app.use('/', require('./routes/index'));
+app.use('/', require('./routes/issues'));
 
-// catch 404 and forward to error handler
+// Error handling
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -60,8 +49,6 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
@@ -69,8 +56,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
-
-
 
 module.exports = app;

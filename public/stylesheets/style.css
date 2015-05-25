@@ -145,7 +145,7 @@ div.row + div.row > div:not(.body) {
   line-height: 3em;
 }
 
-.container > div.row:nth-child(odd) {background: #f9f9f9}
+.container > div.row.issues:nth-child(odd) {background: #f9f9f9}
 
 div.row {
   padding: 30px;

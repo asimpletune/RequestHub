@@ -5,8 +5,8 @@ router.get('/', function(req, res, next) {
   res.render('layout',
     {
       partials: {
-        head: 'head',
-        nav: 'nav',
+        head: 'partials/head',
+        nav: 'partials/nav',
         content: 'index'
       }
     });

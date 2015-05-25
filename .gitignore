@@ -1,3 +1,4 @@
 node_modules
 settings.js
-sslcert/
+server.crt
+server.key
