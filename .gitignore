@@ -1,4 +1,4 @@
 node_modules
 settings.js
-server.crt
-server.key
+*.key
+*.crt
