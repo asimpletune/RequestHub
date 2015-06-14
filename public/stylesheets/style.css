@@ -24,29 +24,6 @@ body {
   border-bottom: 0px;
 }
 
-.content .issue td {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  border: none;
-}
-
-.content .issue td {
-  max-width: 14.875em;
-}
-
-.content .issue td {
-  max-width: 23.875em;
-}
-
-tbody tr.issue td {
-  padding: 15px 8px;
-}
-
-thead tr.issue td {
-  padding: 0px 8px;
-}
-
 .footer {
   position: absolute;
   bottom: 0;
@@ -134,7 +111,7 @@ thead tr.issue td {
 
 .img-circle {
   width: 35px;
-  margin: 0 15px;
+  margin-right: 15px;
 }
 
 div.row + div.row > div:not(.body) {
@@ -145,7 +122,7 @@ div.row + div.row > div:not(.body) {
   line-height: 3em;
 }
 
-.container > div.row.issues:nth-child(odd) {background: #f9f9f9}
+div.issue:nth-child(odd) {background: #f9f9f9}
 
 div.row {
   padding: 30px;

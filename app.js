@@ -26,11 +26,11 @@ app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes declaration and usage
-app.use('/test/', require('./routes/issues-test'));
-app.use('/vote/', require('./routes/vote'));
+app.use('/', require('./routes/issues'));
 app.use('/', require('./routes/login'));
 app.use('/', require('./routes/index'));
-app.use('/', require('./routes/issues'));
+app.use('/vote/', require('./routes/vote'));
+app.use('/test/', require('./routes/issues-test'));
 
 // Error handling
 app.use(function(req, res, next) {
