@@ -1,4 +1,3 @@
 node_modules
 settings.js
-*.key
-*.crt
+config/ssl/server.*

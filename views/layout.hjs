@@ -8,7 +8,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/jquery-1.11.2.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/javascripts/ie10-viewport-bug-workaround.js"></script>
