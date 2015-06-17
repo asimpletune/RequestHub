@@ -21,16 +21,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({ secret: 'keyboard cat' }));
 app.use(cookieParser());
 app.use(passport.initialize());
+app.use(passport.session());
 
 // Static file server for /public
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes declaration and usage
-app.use('/', require('./routes/issues'));
+app.use('/test/', require('./routes/issues-test'));
+app.use('/vote/', require('./routes/vote'));
 app.use('/', require('./routes/login'));
 app.use('/', require('./routes/index'));
-app.use('/vote/', require('./routes/vote'));
-app.use('/test/', require('./routes/issues-test'));
+app.use('/', require('./routes/issues'));
 
 // Error handling
 app.use(function(req, res, next) {
