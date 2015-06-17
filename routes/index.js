@@ -4,7 +4,9 @@ var router = require('express').Router();
 router.get('/', function(req, res, next) {
   res.render('layout',
     {
-      loggedIn: req.isAuthenticated(),
+      user: {
+        isLoggedIn : req.app.user.isLoggedIn
+      },
       partials: {
         head: 'partials/head',
         nav: 'partials/nav',
