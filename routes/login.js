@@ -15,7 +15,6 @@ var User = require('../models/db').users;
 //   and deserialized.
 passport.serializeUser(function(user, done) {
   done(null, user);
-
 });
 
 passport.deserializeUser(function(obj, done) {
@@ -40,11 +39,13 @@ passport.use(new GitHubStrategy({
 );
 
 router.get('/login', function(req, res, next) {
-  res.render('login',
-    {
-
-    });
+  res.redirect('/auth/github');
 });
+
+router.get('/logout', function(req, res, next) {
+  req.logout();
+  res.redirect('/');
+})
 
 // GET /auth/github
 //   Use passport.authenticate() as route middleware to authenticate the

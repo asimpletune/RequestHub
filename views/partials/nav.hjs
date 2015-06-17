@@ -32,7 +32,7 @@
                           <div class="row">
                               <div class="col-lg-12">
                                   <p class="logout">
-                                      <a href="#" class="btn btn-danger btn-block">Logout</a>
+                                      <a href="/logout" class="btn btn-danger btn-block">Logout</a>
                                   </p>
                               </div>
                           </div>
@@ -44,7 +44,7 @@
       {{/loggedIn}}
       {{^loggedIn}}
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/auth/github">
+          <li><a href="/login">
             <img class="img-circle" src="/images/GitHub-Mark-Light-32px.png"/>Login</a>
           </li>
         </ul>
