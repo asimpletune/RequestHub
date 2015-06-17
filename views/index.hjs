@@ -4,6 +4,7 @@
       <div id="about">
         <h1>Voting for GitHub!</h1>
         <p class="lead">RequestHub is a simple tool that uses the GitHub API<br> to allow people to vote on features/issues for their favorite projects.</p>
+        <hr>        
       </div>
     </section>
     <section>
