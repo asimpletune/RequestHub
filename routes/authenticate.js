@@ -4,7 +4,7 @@ var GitHubStrategy = require('passport-github').Strategy;
 var settings = require('../config/settings')
 var GITHUB_CLIENT_ID = settings["github"]["CLIENT_ID"];
 var GITHUB_CLIENT_SECRET = settings["github"]["SECRET_KEY"];
-var User = require('../models/db').users;
+var Users = require('../models/db').users;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -20,8 +20,13 @@ passport.use(new GitHubStrategy({
     callbackURL: "http://localhost:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.insert({githubId: profile.id}, function (err, user) {
-      return done(err, user);
+    Users.findAndModify({
+        query: { github : {id: profile.id} },
+        update: { $set: { 'github': profile._json } }
+      }, { new: true, upsert: true }).on('success', function(doc) {
+      done(null, doc);
+    }).on('error', function(err) {
+      done(err, doc);
     });
   })
 );
