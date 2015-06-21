@@ -31,14 +31,6 @@ passport.use(new GitHubStrategy({
   })
 );
 
-/* Build user model once, upstream from everything */
-router.get('/*', function(req, res, next) {
-  req.app.user = {
-    isLoggedIn : req.isAuthenticated()
-  };
-  next();
-});
-
 router.get('/login', function(req, res, next) {
   res.redirect('/auth/github');
 });
