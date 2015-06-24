@@ -7,17 +7,22 @@ router.get('/:user/:repo/*', function(req, res, next) {
 });
 
 router.get('/:user/:repo', function(req, res, next) {
-  var headers = { 'User-Agent': 'node' },
-  options = {
+  var options = {
     hostname: 'api.github.com',
     port: 443,
     path: "/repos/" + req.params.user + "/" + req.params.repo + "/issues",
     method: 'GET',
-    headers: headers
+    headers : {
+      'User-Agent': 'node'
+    }
   }, model = {
-    "repo" : req.params.repo,
-    "user" : req.params.user
+    "user" : req.params.user,
+    "repo" : req.params.repo
   };
+
+  if (req.user) {
+    options.headers.Authorization = req.user.github.accessToken;
+  }
 
   https.get(options, function(response) {
     if (response.statusCode == 200) {
@@ -38,7 +43,13 @@ router.get('/:user/:repo', function(req, res, next) {
           } else {
             model = repo;
           }
-          res.render('issues', model);
+          model.user = req.user;
+          model.partials= {
+            head: 'partials/head',
+            nav: 'partials/nav',
+            content: 'issues2'
+          };
+          res.render('layout', model);
         });
       });
     } else {

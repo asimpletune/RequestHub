@@ -16,7 +16,9 @@ var https = require('https');
  * Get port from environment and store in Express.
  */
 var port = normalizePort(process.env.PORT || '3000');
+var httpsPort = normalizePort(process.env.HTTPS_PORT || '3001');
 app.set('port', port);
+app.set('httpsPort', httpsPort); //TODO: figure out what the actual key for this is supposed to be, if there is one
 
 /**
  * Create HTTP and HTTPS servers.
@@ -31,7 +33,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-httpsServer.listen(443);
+httpsServer.listen(httpsPort);
 httpsServer.on('error', onError);
 httpsServer.on('listening', onListening);
 
