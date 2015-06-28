@@ -2,7 +2,7 @@
       class="container">
   <div  id="repo-header"
         class="page-header">
-    <h1>{{user}}/{{repo}}</h1>
+    <h1>{{author}}/{{repo}}</h1>
   </div>
   <div id="issues-list-header"
     class="row">
@@ -32,7 +32,7 @@
           </div>
           <div class="vote-count-col col-lg-1">
             <div class="vote-count">
-              {{votes}}
+              {{votes.length}}
             </div>
           </div>
           <div class="issue-id-col col-lg-2">

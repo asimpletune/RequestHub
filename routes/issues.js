@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var https = require('https');
-var repos = require('../models/db').repos;
+var Issues = require('../models/db').issues;
 
 router.get('/:user/:repo/*', function(req, res, next) {
   res.redirect("/" + req.params.user + "/" + req.params.repo);
@@ -15,48 +15,55 @@ router.get('/:user/:repo', function(req, res, next) {
     headers : {
       'User-Agent': 'node'
     }
-  }, model = {
-    "user" : req.params.user,
-    "repo" : req.params.repo
-  };
+  },
+  model = {
+    "user" : req.user,
+    "author" : req.params.user,
+    "repo" : req.params.repo,
+    "issues" : [],
+    "partials" : {
+      head: 'partials/head',
+      nav: 'partials/nav',
+      content: 'issues2'
+    }
+  };  
 
   if (req.user) {
-    options.headers.Authorization = req.user.github.accessToken;
+    options.headers.Authorization = "token " + req.user.github.accessToken;
   }
 
   https.get(options, function(response) {
-    if (response.statusCode == 200) {
-      var data = '';
-      response.on('data', function(d) { data += d; });
-      response.on('end', function(d) {
-        repos.findOne(model).on('success', function(repo) {
-          if (repo == null) {
-            model.issues = JSON.parse(data);
-            model.issues.forEach(function(issue){ issue.votes = 0; });
-            repos.insert(model, function(error, doc){
-              if (error) throw error;
-              else {
-                console.log("Added:")
-                console.log(doc);
-              }
+    var data = '';
+    response.on('data', function(d) { data += d; });
+    response.on('end', function(d) {
+      switch (response.statusCode) {
+        case 200:
+          var repoIssues = JSON.parse(data);
+          var update;
+          repoIssues.forEach(function(issue) {
+            update = Issues.findAndModify(
+              { "id": issue.id },
+              { $set : issue , $setOnInsert : { "votes" : [] } },
+              { "new": true, "upsert": true })
+            .on('success', function(updated) {
+              model.issues.push(updated);
+            }).on('error', function(err) {
+              console.log("ERROR: " + err);
+            });
+          });
+          if (update) {
+            update.on('success', function(){ 
+              res.render('layout', model); 
             });
           } else {
-            model = repo;
+            console.log("WUPS");
           }
-          model.user = req.user;
-          model.partials= {
-            head: 'partials/head',
-            nav: 'partials/nav',
-            content: 'issues2'
-          };
-          res.render('layout', model);
-        });
-      });
-    } else {
-      next();
-    }
-  }).on('error', function(e) {
-    console.error(e);
+      default:
+        break;
+            }
+    });
+  }).on('error', function(err) {
+    console.log("ERROR: " + err);
   });
 });
 

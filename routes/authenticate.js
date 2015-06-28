@@ -20,34 +20,30 @@ passport.use(new GitHubStrategy({
     callbackURL: "http://localhost:3000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    Users.findAndModify({
-        query: { github : {id: profile.id} },
-        update: { $set: { 'github': profile._json } }
-      }, { new: true, upsert: true }).on('success', function(doc) {
+    Users.findAndModify(
+        { "github.id" : profile.id },
+        { $set: { 'github': profile._json } },
+        { "new": true, upsert: true })
+    .on('success', function(doc) {
+      doc.github.accessToken = accessToken;
       done(null, doc);
     }).on('error', function(err) {
-      done(err, doc);
+      done(err);
     });
   })
 );
 
-router.get('/login', function(req, res, next) {
-  res.redirect('/auth/github');
-});
+router.get('/auth/github', passport.authenticate('github'),function(req, res){});
 
+router.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {    
+    res.redirect('/');
+  });
+  
 router.get('/logout', function(req, res, next) {
   req.logout();
   res.redirect('/');
 });
-
-router.get('/auth/github',
-  passport.authenticate('github'),
-  function(req, res){});
-
-router.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
 
 module.exports = router;
