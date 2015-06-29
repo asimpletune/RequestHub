@@ -33,17 +33,21 @@ passport.use(new GitHubStrategy({
   })
 );
 
-router.get('/auth/github', passport.authenticate('github'),function(req, res){});
+router.get('/login', function(req, res, err) {
+  req.session.redirectUrl = req.header('Referer') || '/';
+  res.redirect('/auth/github');
+});
 
-router.get('/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) {    
-    res.redirect('/');
+router.get('/auth/github', passport.authenticate('github'), function(req, res){});
+
+router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) { 
+    res.redirect(req.session.redirectUrl); 
   });
   
-router.get('/logout', function(req, res, next) {
+router.get('/logout', function(req, res, next) {  
   req.logout();
-  res.redirect('/');
+  res.redirect(req.header('Referer') || '/');
 });
 
 module.exports = router;

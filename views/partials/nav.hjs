@@ -44,7 +44,7 @@
       {{/user}}
       {{^user}}
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/auth/github">
+          <li><a href="/login">
             <img class="img-circle" src="/images/GitHub-Mark-Light-32px.png"/>Login</a>
           </li>
         </ul>
