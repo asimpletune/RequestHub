@@ -1,128 +1,80 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>RequestHub - Vote on feature requests and more!</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/stylesheets/style.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/javascripts/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body>
-
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">
-            RequestHub
-          </a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/#instructions">Instructions</a></li>
-            <li><a href="/#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div><!-- /.container -->
-    </nav>
-
-
-    <div class="container">
-      <div class="starter-template">
-        <div class="page-header">
-          <h1>{{ user }}/{{ repo }}</h1>
-        </div>
-          <div class="issues table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr class='issue'>
-                  <td class='header-vote'></td>
-                  <td class='header-title'><h3>Votes</h3></td>
-                  <td class='header-title'><h3>Issue #</h3></td>
-                  <td class='header-title'><h3>Title</h3></td>
-                  <td class='header-body'><h3>Body<h3></td>
-                  <td class='header-author'><h3>Author<h3></td>
-                </tr>
-              </thead>
-              <tbody>
-                {{#issues}}
-                <tr id="issue_{{number}}" class="issue">
-                  <td class="body-vote">
-                    <div class="btn-group" role="group" aria-label="...">
-                      <button type="button" class="btn btn-default"
-                      onclick='myFunc({{number}}, function(){
-                        var vote = $("#issue_{{number}} .votes");
-                        var voteCount = Number(vote.text());
-                        vote.text(++voteCount);
-                      });'>
-                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                      </button>
-                    </div>
-                  </td>
-                  <td class="votes body-title">{{votes}}</td>
-                  <td class="body-title">{{number}}</td>
-                  <td class="body-title"><a href="{{html_url}}">{{title}}</a></td>
-                  <td class="body-body">{{body}}</td>
-                  <td class="body-author">{{#user}}<a href="{{html_url}}">{{login}}</a>{{/user}}</td>
-                </tr>
-                {{/issues}}
-              </tbody>
-            </table>
-          </div>
-      </div>
-    </div><!-- /.container -->
-
-    <footer class="footer text-center">
-      <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                © Spencer Scorcelletti 2015
+<div  id="viewContent"
+      class="container">
+  <div  id="repo-header"
+        class="page-header">
+    <h1>{{author}}/{{repo}}</h1>
+  </div>
+  <div id="issues-list-header"
+    class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-1"><h3>votes</h3></div>
+    <div class="col-lg-2"><h3>issue #</h2></div>
+    <div class="col-lg-5"><h3>title</h2></div>
+    <div class="col-lg-2"><h3>author</h3></div>
+  </div>
+  <div  id="issues-list"
+        class="accordion">
+    {{#issues}}
+      <div  id="issue-{{number}}"
+            class="issue accordion-group">
+        <div class="issue-header accordion-heading row">
+          <div class="vote-icon-col col-lg-1">
+            <div class="vote-icon btn-group" role="group" aria-label="...">
+              <button type="button" class="btn btn-default"
+              onclick='myFunc({{number}}, function(){
+                var vote = $("#issue_{{number}} .votes");
+                var voteCount = Number(vote.text());
+                vote.text(++voteCount);
+              });'>
+                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+              </button>
             </div>
+          </div>
+          <div class="vote-count-col col-lg-1">
+            <div class="vote-count">
+              {{votes.length}}
+            </div>
+          </div>
+          <div class="issue-id-col col-lg-2">
+            <div class="issue-id">
+              {{number}}
+            </div>
+          </div>
+          <div class="issue-title-col col-lg-5">
+            <div class="issue-title">
+              <a href="{{html_url}}">{{title}}</a>
+            </div>
+          </div>
+          <div class="issue-author-col col-lg-2">
+            <div class="issue-author"
+              <a href="{{user.github.html_url}}">{{user.login}}</a>
+            </div>
+          </div>
+          <div class="issue-body-toggle-col col-lg-1">
+            <div class="issue-body-toggle">
+              <a class="accordion-toggle issueBodyToggle collapsed" data-toggle="collapse" data-parent="#issues-list" href="#{{number}}">
+                <span href="#{{number}}" class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+                <span href="#{{number}}" class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="issue-body accordion-body collapse out" id="{{number}}">
+          <div class="issue-details row accordion-inner">
+            {{body}}
+          </div>
         </div>
       </div>
-    </footer>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/javascripts/jquery.min.js"></script>
-    <script type="text/javascript">
-      function myFunc(issueNumber, fn) {
-        $.ajax({
-          type: "POST",
-          url: "http://localhost:3000/vote/{{user}}/{{repo}}/" + issueNumber,
-          success: fn
-        });
-      }
-    </script>
-    <script src="/javascripts/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/javascripts/ie10-viewport-bug-workaround.js"></script>
-
-</body>
-</html>
+    {{/issues}}
+  </div>
+</div>
+<script type="text/javascript">
+  function myFunc(issueNumber, fn) {
+    console.log("called");
+    $.ajax({
+      type: "POST",
+      url: "/vote/{{author}}/{{repo}}/" + issueNumber,
+      success: fn
+    });
+  }
+</script>

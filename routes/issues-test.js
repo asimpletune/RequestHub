@@ -15,7 +15,7 @@ router.get('/:user/:repo', function(req, res, next) {
   model.partials = {
     head: 'partials/head',
     nav: 'partials/nav',
-    content: 'issues2',
+    content: 'issues',
     footer: 'partials/footer'
   };
   model.issues = json;

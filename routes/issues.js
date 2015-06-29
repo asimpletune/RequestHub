@@ -24,9 +24,9 @@ router.get('/:user/:repo', function(req, res, next) {
     "partials" : {
       head: 'partials/head',
       nav: 'partials/nav',
-      content: 'issues2'
+      content: 'issues'
     }
-  };  
+  };
 
   if (req.user) {
     options.headers.Authorization = "token " + req.user.github.accessToken;
@@ -52,8 +52,8 @@ router.get('/:user/:repo', function(req, res, next) {
             });
           });
           if (update) {
-            update.on('success', function(){ 
-              res.render('layout', model); 
+            update.on('success', function(){
+              res.render('layout', model);
             });
           } else {
             console.log("WUPS");
