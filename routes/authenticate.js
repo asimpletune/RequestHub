@@ -5,6 +5,7 @@ var settings = require('../config/settings')
 var GITHUB_CLIENT_ID = settings["github"]["CLIENT_ID"];
 var GITHUB_CLIENT_SECRET = settings["github"]["SECRET_KEY"];
 var Users = require('../models/db').users;
+var session = require('express-session');
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -32,6 +33,10 @@ passport.use(new GitHubStrategy({
     });
   })
 );
+
+router.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+router.use(passport.initialize());
+router.use(passport.session());
 
 router.get('/login', function(req, res, err) {
   req.session.redirectUrl = req.header('Referer') || '/';
