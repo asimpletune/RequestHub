@@ -6,6 +6,13 @@ var GITHUB_CLIENT_ID = settings["github"]["CLIENT_ID"];
 var GITHUB_CLIENT_SECRET = settings["github"]["SECRET_KEY"];
 var Users = require('../models/db').users;
 var session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
+
+var store = new MongoDBStore(
+      { 
+        uri: 'mongodb://192.168.59.103:27017',
+        collection: 'mySessions'
+      });    
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -34,7 +41,11 @@ passport.use(new GitHubStrategy({
   })
 );
 
-router.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+router.use(require('express-session')({
+  secret: 'This is a secret',
+  store: store
+}));
+
 router.use(passport.initialize());
 router.use(passport.session());
 

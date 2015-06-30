@@ -17,6 +17,7 @@
     "passport": "^0.2.1",
     "passport-github": "^0.1.5",
     "serve-favicon": "~2.2.0",    
-    "deep-copy": "~1.0.0"
+    "connect-mongodb-session": "~1.0.3",
+    "mongo-express": "~0.21.0"
   }
 }
