@@ -21,10 +21,14 @@
           <div class="vote-icon-col col-lg-1">
             <div class="vote-icon btn-group" role="group" aria-label="...">
               <button type="button" class="btn btn-default"
-              onclick='myFunc({{number}}, function(){
-                var vote = $("#issue_{{number}} .votes");
-                var voteCount = Number(vote.text());
-                vote.text(++voteCount);
+              onclick='myFunc({{number}}, function(data){
+                if (data && data.redirect){
+                  window.location.href=data.redirect;
+                }
+                if (data && data.votes) {
+                  var vote = $("#issue-{{number}} .vote-count");
+                  vote.text(data.votes.length);
+                }
               });'>
                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
               </button>
