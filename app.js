@@ -24,7 +24,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes declaration and usage
 app.use('/', require('./routes/authenticate'));
-app.use('/test/', require('./routes/issues-test'));
 app.use('/vote/', require('./routes/vote'));
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/issues'));
