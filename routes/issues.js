@@ -54,8 +54,6 @@ router.get('/:user/:repo', function(req, res, next) {
           });
 
           var bulkResult = bulk.execute(function(err, result) {
-            console.log("RESULT");
-            console.log(result.toJSON());
             if (err) throw err;
             else {
               Issues.find({ "id": { $in: issueIDs } }, function(err, cursor) {

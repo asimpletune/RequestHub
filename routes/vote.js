@@ -7,23 +7,23 @@ require('../models/db')( function(err, database){
 });
 var passport = require('passport');
 
-router.post('/:user/:repo/:issue', function(req, res, next) {
-	if (req.isAuthenticated()) {
-		console.log(req.user.github.login);
-		Issues.findAndModify(
-			{ "number": Number(req.params.issue),
-				"votes" : { $nin : [req.user.github.login]} },
-			[['_id','asc']],
-			{ $push: { "votes" : req.user.github.login }},
-			{ "new" : true }, function(err, document){
-				if (err) throw error;
-				else {
-					res.json(document.value);
-				}
-			});
-	} else {
-		res.json({"redirect": "/login"})
-	}
+router.post('/:user/:repo/:issue', ensureAuthenticated, function(req, res, next) {
+	Issues.findAndModify(
+		{ "number": Number(req.params.issue),
+			"votes" : { $nin : [req.user.github.login]} },
+		[['_id','asc']],
+		{ $push: { "votes" : req.user.github.login }},
+		{ "new" : true }, function(err, document){
+			if (err) throw error;
+			else {
+				res.json(document.value);
+			}
+		});
 });
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+	res.json({"redirect": "/login"})
+}
 
 module.exports = router;
