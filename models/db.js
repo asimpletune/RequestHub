@@ -1,12 +1,18 @@
 var configDB = {
-  'url' : 'mongodb://192.168.59.103:27017' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
+  'url' : 'mongodb://192.168.59.103:27017'
 };
 
-var db = require('monk')(configDB.url);
-var users = db.get('users');
-var issues = db.get('issues');
+var MongoClient = require('mongodb').MongoClient;
+var db;
 
-module.exports = {
-  "users" : users,
-  "issues" : issues
-};
+module.exports = function(callback) {
+  if (db) {
+    callback(null, db);
+  }
+  else {
+    MongoClient.connect("mongodb://192.168.59.103:27017/", function(error, database) {
+      db = database;
+      callback(error, db);
+    });
+  }
+}

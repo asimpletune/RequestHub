@@ -4,15 +4,16 @@ var GitHubStrategy = require('passport-github').Strategy;
 var settings = require('../config/settings')
 var GITHUB_CLIENT_ID = settings["github"]["CLIENT_ID"];
 var GITHUB_CLIENT_SECRET = settings["github"]["SECRET_KEY"];
-var Users = require('../models/db').users;
+var Users;
+require("../models/db")(function(err, database) {
+  if (err) throw err;
+  else Users = database.collection("users");
+});
+
 var session = require('express-session');
 var MongoDBStore = require('connect-mongodb-session')(session);
 
-var store = new MongoDBStore(
-      { 
-        uri: 'mongodb://192.168.59.103:27017',
-        collection: 'mySessions'
-      });    
+var store = new MongoDBStore( { uri: 'mongodb://192.168.59.103:27017', collection: 'mySessions' } );
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -29,15 +30,19 @@ passport.use(new GitHubStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     Users.findAndModify(
-        { "github.id" : profile.id },
-        { $set: { 'github': profile._json } },
-        { "new": true, upsert: true })
-    .on('success', function(doc) {
-      doc.github.accessToken = accessToken;
-      done(null, doc);
-    }).on('error', function(err) {
-      done(err);
-    });
+      { "github.id" : profile.id }, // query
+      [['_id','asc']],  // sort order
+      { $set: { 'github': profile._json } }, // replacement, replaces only the field "hi"
+      { "new": true, upsert: true }, // options
+      function(err, doc) {
+          if (err){
+              console.warn(err.message);  // returns error if no matching object found
+              done(err);
+          }else{
+              doc.value.github.accessToken = accessToken;
+              done(null, doc.value);
+          }
+      });
   })
 );
 
@@ -57,11 +62,11 @@ router.get('/login', function(req, res, err) {
 router.get('/auth/github', passport.authenticate('github'), function(req, res){});
 
 router.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/login' }),
-  function(req, res) { 
-    res.redirect(req.session.redirectUrl); 
+  function(req, res) {
+    res.redirect(req.session.redirectUrl);
   });
-  
-router.get('/logout', function(req, res, next) {  
+
+router.get('/logout', function(req, res, next) {
   req.logout();
   res.redirect(req.header('Referer') || '/');
 });
