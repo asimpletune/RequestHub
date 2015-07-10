@@ -1,6 +1,10 @@
 var router = require('express').Router();
 var https = require('https');
-var Issues = require('../models/db').issues;
+var Issues;
+require('../models/db')( function(err, database){
+  if (err) throw err;
+  else Issues = database.collection("issues");
+});
 
 router.get('/:user/:repo/*', function(req, res, next) {
   res.redirect("/" + req.params.user + "/" + req.params.repo);
@@ -39,28 +43,33 @@ router.get('/:user/:repo', function(req, res, next) {
       switch (response.statusCode) {
         case 200:
           var repoIssues = JSON.parse(data);
-          var update;
+          var issueIDs = [];
+          var bulk = Issues.initializeUnorderedBulkOp();
+
           repoIssues.forEach(function(issue) {
-            update = Issues.findAndModify(
-              { "id": issue.id },
-              { $set : issue , $setOnInsert : { "votes" : [] } },
-              { "new": true, "upsert": true })
-            .on('success', function(updated) {
-              model.issues.push(updated);
-            }).on('error', function(err) {
-              console.log("ERROR: " + err);
-            });
+            issueIDs.push(issue.id);
+            bulk.find( { "id": issue.id } )
+            .upsert()
+            .update({ $set : issue , $setOnInsert : { "votes" : [] } });
           });
-          if (update) {
-            update.on('success', function(){
-              res.render('layout', model);
-            });
-          } else {
-            console.log("WUPS");
-          }
+
+          var bulkResult = bulk.execute(function(err, result) {
+            console.log("RESULT");
+            console.log(result.toJSON());
+            if (err) throw err;
+            else {
+              Issues.find({ "id": { $in: issueIDs } }, function(err, cursor) {
+                cursor.toArray( function(err, doc){
+                  model.issues = doc;
+                  res.render('layout', model);
+                });
+              });
+            }
+          });
+
       default:
         break;
-            }
+      }
     });
   }).on('error', function(err) {
     console.log("ERROR: " + err);
