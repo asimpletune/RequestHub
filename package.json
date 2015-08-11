@@ -1,5 +1,5 @@
 {
-  "name": "RequestHub.io",
+  "name": "requesthub.io",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -16,6 +16,35 @@
     "passport": "^0.2.1",
     "passport-github": "^0.1.5",
     "serve-favicon": "~2.2.0",
-    "connect-mongodb-session": "~1.0.3"
-  }
+    "connect-mongodb-session": "~1.0.3",
+    "showdown": "~1.2.2",
+    "mongodb": "~2.0.40"
+  },
+  "description": "Let people vote on feature/pull requests on GitHub, using GitHub's API with labels and issues.",
+  "main": "./bin/www",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asimpletune/RequestHub.io.git"
+  },
+  "keywords": [
+    "github",
+    "issues",
+    "voting",
+    "requesthub",
+    "requesthub.io",
+    "feature",
+    "requests",
+    "bug",
+    "fixes",
+    "bug",
+    "request",
+    "fix"
+  ],
+  "author": "Spencer Scorcelletti",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/asimpletune/RequestHub.io/issues"
+  },
+  "homepage": "https://github.com/asimpletune/RequestHub.io#readme"
 }
