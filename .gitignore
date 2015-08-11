@@ -1,4 +1,5 @@
 node_modules
-settings.js
-config/ssl/server.*
+config/ssl/*.crt
+config/ssl/*.csr
+config/ssl/*.key
 *.log

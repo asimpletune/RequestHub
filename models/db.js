@@ -1,6 +1,4 @@
-var configDB = {
-  'url' : 'mongodb://192.168.59.103:27017'
-};
+var settings = require("../config/settings");
 
 var MongoClient = require('mongodb').MongoClient;
 var db;
@@ -10,7 +8,7 @@ module.exports = function(callback) {
     callback(null, db);
   }
   else {
-    MongoClient.connect("mongodb://192.168.59.103:27017/", function(error, database) {
+    MongoClient.connect(settings.db.url, function(error, database) {
       db = database;
       callback(error, db);
     });
