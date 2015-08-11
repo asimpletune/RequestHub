@@ -140,3 +140,7 @@ div.row {
 .issueBodyToggle.collapsed .glyphicon-menu-up, .issueBodyToggle .glyphicon-menu-down {
   display: none;
 }
+
+#repo-header {
+  margin: 70px 0 20px;
+}

@@ -3,3 +3,4 @@ config/ssl/*.crt
 config/ssl/*.csr
 config/ssl/*.key
 *.log
+.settings

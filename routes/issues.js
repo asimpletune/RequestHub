@@ -5,6 +5,7 @@ require('../models/db')( function(err, database){
   if (err) throw err;
   else Issues = database.collection("issues");
 });
+var showdown = require('showdown'), converter = new showdown.Converter();
 
 router.get('/:user/:repo/*', function(req, res, next) {
   res.redirect("/" + req.params.user + "/" + req.params.repo);
@@ -58,6 +59,9 @@ router.get('/:user/:repo', function(req, res, next) {
             else {
               Issues.find({ "id": { $in: issueIDs } }, function(err, cursor) {
                 cursor.toArray( function(err, doc){
+                  doc.forEach(function(el) {
+                    el.body = converter.makeHtml(el.body);
+                  });
                   model.issues = doc;
                   res.render('layout', model);
                 });

@@ -55,17 +55,22 @@
             </div>
           </div>
           <div class="issue-body-toggle-col col-lg-1">
+            {{#body}}
             <div class="issue-body-toggle">
               <a class="accordion-toggle issueBodyToggle collapsed" data-toggle="collapse" data-parent="#issues-list" href="#{{number}}">
                 <span href="#{{number}}" class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
                 <span href="#{{number}}" class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
               </a>
             </div>
+            {{/body}}
           </div>
         </div>
         <div class="issue-body accordion-body collapse out" id="{{number}}">
-          <div class="issue-details row accordion-inner">
-            {{body}}
+          <div class="issue-details row accordion-inner markdown-body">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-9">
+              {{{body}}}
+            </div>
           </div>
         </div>
       </div>
