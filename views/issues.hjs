@@ -50,8 +50,8 @@
             </div>
           </div>
           <div class="issue-author-col col-lg-2">
-            <div class="issue-author"
-              <a href="{{user.github.html_url}}">{{user.login}}</a>
+            <div class="issue-author">
+              <a href="{{user.html_url}}">{{user.login}}</a>
             </div>
           </div>
           <div class="issue-body-toggle-col col-lg-1">
@@ -66,9 +66,11 @@
           </div>
         </div>
         <div class="issue-body accordion-body collapse out" id="{{number}}">
-          <div class="issue-details row accordion-inner markdown-body">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-9">
+          <div class="issue-details row accordion-inner">
+            <div class="col-lg-3">
+              <img class="img-circle-md" src="{{user.avatar_url}}"/>
+            </div>
+            <div class="col-lg-9 markdown-body">
               {{{body}}}
             </div>
           </div>

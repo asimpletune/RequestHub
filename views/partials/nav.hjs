@@ -22,7 +22,7 @@
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <!-- <span class="glyphicon glyphicon-user"></span>  -->
-                  <img class="img-circle" src="{{github.avatar_url}}"/>
+                  <img class="img-circle-sm" src="{{github.avatar_url}}"/>
                   <strong>{{github.login}}</strong>
                   <span class="glyphicon glyphicon-chevron-down"></span>
               </a>
@@ -45,7 +45,7 @@
       {{^user}}
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/login">
-            <img class="img-circle" src="/images/GitHub-Mark-Light-32px.png"/>Login</a>
+            <img class="img-circle-sm" src="/images/GitHub-Mark-Light-32px.png"/>Login</a>
           </li>
         </ul>
       {{/user}}
