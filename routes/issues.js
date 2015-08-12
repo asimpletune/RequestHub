@@ -47,28 +47,31 @@ router.get('/:user/:repo', function(req, res, next) {
           var issueIDs = [];
           var bulk = Issues.initializeUnorderedBulkOp();
 
-          repoIssues.forEach(function(issue) {
-            issueIDs.push(issue.id);
-            bulk.find( { "id": issue.id } )
-            .upsert()
-            .update({ $set : issue , $setOnInsert : { "votes" : [] } });
-          });
+          if (repoIssues.length > 0) {
+            repoIssues.forEach(function(issue) {
+              issueIDs.push(issue.id);
+              bulk.find( { "id": issue.id } )
+              .upsert()
+              .update({ $set : issue , $setOnInsert : { "votes" : [] } });
+            });
 
-          var bulkResult = bulk.execute(function(err, result) {
-            if (err) throw err;
-            else {
-              Issues.find({ "id": { $in: issueIDs } }, function(err, cursor) {
-                cursor.toArray( function(err, doc){
-                  doc.forEach(function(el) {
-                    el.body = converter.makeHtml(el.body);
+            var bulkResult = bulk.execute(function(err, result) {
+              if (err) throw err;
+              else {
+                Issues.find({ "id": { $in: issueIDs } }, function(err, cursor) {
+                  cursor.toArray( function(err, doc){
+                    doc.forEach(function(el) {
+                      el.body = converter.makeHtml(el.body);
+                    });
+                    model.issues = doc;
+                    res.render('layout', model);
                   });
-                  model.issues = doc;
-                  res.render('layout', model);
                 });
-              });
-            }
-          });
-
+              }
+            });
+          } else {
+            res.render('layout', model);
+          }
       default:
         break;
       }
