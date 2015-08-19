@@ -4,3 +4,4 @@ config/ssl/*.csr
 config/ssl/*.key
 *.log
 .settings
+*.override.js

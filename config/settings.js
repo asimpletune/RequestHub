@@ -1,3 +1,5 @@
+var overrides = require('./settings.override');
+
 module.exports = {
   "github" : {
     "CLIENT_ID": "<REPLACE>",
@@ -7,7 +9,7 @@ module.exports = {
     "secret": "<REPLACE>"
   },
   "db" : {
-    "url": "<REPLACE>",
-    "name": "<REPLACE>"
+    "url": overrides.db.url || "localhost",
+    "name": overrides.db.name || "test"
   }
 }
