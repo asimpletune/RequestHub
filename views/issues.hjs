@@ -72,6 +72,12 @@
             </div>
             <div class="col-lg-9 markdown-body">
               {{{body}}}
+              {{#comments}}
+                <div class="comments">
+                  <a onclick="loadComments(this, {{number}}); return false;" src="">Load comments</a>
+                  <a style="display: none;" onclick="hideComments(this, {{number}}); return false;" src="">hide comments</a>
+                </div>
+              {{/comments}}
             </div>
           </div>
         </div>
@@ -81,11 +87,29 @@
 </div>
 <script type="text/javascript">
   function myFunc(issueNumber, fn) {
-    console.log("called");
     $.ajax({
       type: "POST",
       url: "/vote/{{author}}/{{repo}}/" + issueNumber,
       success: fn
     });
   }
+  </script>
+<script type="text/javascript">
+  function loadComments(caller, issueNumber) {
+    var comments = $(caller).parent(), converter = new showdown.Converter();
+    $.ajax({
+      type: "GET",
+      url: "https://api.github.com/repos/{{author}}/{{repo}}/issues/" + issueNumber + "/comments",
+      success: function(data) {
+        data.forEach(function(el) {
+          var html = converter.makeHtml(el.body);
+          comments.append(
+            "<div class=\"comment row\">" +
+            "<img class=\"img-circle-sm\" src=\"" +el.user.avatar_url + "\">" +
+            html +
+          "</div>");
+        });
+        }
+      });
+    }
 </script>

@@ -129,7 +129,9 @@ div.row + div.row > div:not(.body) {
   line-height: 3em;
 }
 
-div.issue:nth-child(odd) {background: #f9f9f9}
+div.issue:nth-child(odd), div.comments div.row.comment:nth-child(odd) {
+  background: #f9f9f9
+}
 
 div.row {
   padding: 30px;
@@ -162,4 +164,11 @@ div.row {
 
 .issue-details.row.accordion-inner img.img-circle-md {
   margin-left: 30px;
+}
+.issue-details .comments {
+  text-align: center;
+}
+.issue-details .comments img {
+  shape-outside: circle();
+  float: left;
 }
